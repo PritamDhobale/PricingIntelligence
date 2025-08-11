@@ -8,7 +8,7 @@ import { ToastProvider } from "@/components/toast"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Hotel Pricing Intelligence Platform",
+  title: "Pricing Intelligence Platform",
   description: "Boutique hotel pricing optimization and intelligence platform",
     generator: 'v0.dev'
 }

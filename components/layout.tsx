@@ -10,6 +10,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { Building2, BarChart3, Calendar, Users, Settings, TrendingUp, Upload, Zap, LogOut, Menu, User, ChevronDown, ChevronRight, DollarSign, Target, BookOpen, TrendingDown, Activity, PieChart, LineChart, Layers, Megaphone, Gift, CalendarIcon, Home, Lightbulb } from 'lucide-react'
 import { cn } from "@/lib/utils"
 import { toast } from "@/components/toast"
+import Image from "next/image"
 
 interface NavigationItem {
   name: string
@@ -203,9 +204,19 @@ export default function Layout({ children }: LayoutProps) {
         <div className="flex flex-col flex-grow bg-card border-r border-border pt-5 pb-4 overflow-y-auto">
           {/* Logo */}
           <div className="flex items-center flex-shrink-0 px-4">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+            {/* <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <Building2 className="w-5 h-5 text-primary-foreground" />
-            </div>
+            </div> */}
+            <div className="mx-auto w-16 h-16 rounded-2xl overflow-hidden">
+                <Image
+                  src="images/logo2.png"
+                  alt="Pricing Intelligence logo"
+                  width={64}
+                  height={64}
+                  className="w-full h-full object-contain"
+                  priority
+                />
+              </div>
             <span className="ml-2 text-lg font-semibold text-foreground">Hotel Pricing</span>
           </div>
 

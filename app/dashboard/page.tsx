@@ -21,6 +21,7 @@ import {
   Settings,
 } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 
 export default function PropertyDashboard() {
   const [selectedProperty, setSelectedProperty] = useState("grand-boutique")
@@ -142,9 +143,19 @@ export default function PropertyDashboard() {
       <div className="bg-white border-b border-gray-200 px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center">
+            {/* <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center">
               <Building2 className="w-6 h-6 text-white" />
-            </div>
+            </div> */}
+            <div className="mx-auto w-16 h-16 rounded-2xl overflow-hidden">
+                <Image
+                  src="images/logo2.png"
+                  alt="Pricing Intelligence logo"
+                  width={64}
+                  height={64}
+                  className="w-full h-full object-contain"
+                  priority
+                />
+              </div>
             <div>
               <h1 className="text-2xl font-bold text-gray-900">Pricing Intelligence</h1>
               <p className="text-gray-600">Property Dashboard</p>
