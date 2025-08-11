@@ -71,7 +71,7 @@ export default function LoginPage() {
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" placeholder="Enter your email" />
+              <Input id="email" type="email" placeholder="Enter your Email" />
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
