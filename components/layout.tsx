@@ -209,7 +209,7 @@ export default function Layout({ children }: LayoutProps) {
             </div> */}
             <div className="mx-auto w-16 h-16 rounded-2xl overflow-hidden">
                 <Image
-                  src="images/logo2.png"
+                  src="/images/logo2.png"
                   alt="Pricing Intelligence logo"
                   width={64}
                   height={64}
