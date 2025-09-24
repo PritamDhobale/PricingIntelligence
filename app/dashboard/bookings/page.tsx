@@ -84,20 +84,33 @@ function BookingsContent() {
   }
 
   function getRange() {
-    const end = new Date()
-    const start = new Date(end)
-    if (dateRange === "7d") start.setDate(end.getDate() - 6)
-    else if (dateRange === "30d") start.setDate(end.getDate() - 29)
-    else start.setDate(end.getDate() - 89)
-    const iso = (d: Date) => d.toISOString().slice(0, 10)
-    return { start: iso(start), end: iso(end), startDate: start, endDate: end }
+    const end = new Date();            // today
+    const start = new Date(end);
+
+    if (dateRange === "7d")   start.setDate(end.getDate() - 6);
+    else if (dateRange === "30d") start.setDate(end.getDate() - 29);
+    else                        start.setDate(end.getDate() - 89); // 90d
+
+    // exclusive end (next day @ 00:00). this makes the end day inclusive for timestamps
+    const endExclusiveDate = new Date(end);
+    endExclusiveDate.setDate(endExclusiveDate.getDate() + 1);
+
+    const iso = (d: Date) => d.toISOString().slice(0, 10);
+
+    return {
+      start: iso(start),
+      startDate: start,
+      endDate: end,                    // keep the real end date for chart day loop
+      endExclusive: iso(endExclusiveDate), // <-- NEW
+    };
   }
+
 
   useEffect(() => {
     (async () => {
       try {
         const propertyId = await getPropertyIdByCode(PROPERTY_CODE)
-        const { start, end, startDate, endDate } = getRange()
+        const { start, startDate, endDate, endExclusive } = getRange();
 
         // 1) Total rooms for occupancy denominator
         const { data: rtypes } = await supabase
@@ -129,7 +142,8 @@ function BookingsContent() {
           .select("id, guest_name, room_type_id, check_in, nights, rooms, status, price_per_night")
           .eq("property_id", propertyId)
           .gte("check_in", start)
-          .lte("check_in", end)
+          .lt("check_in", endExclusive)   // end day inclusive, safe for timestamps
+
 
         if (status !== "all") q = q.eq("status", status)
         if (roomTypeIds && roomTypeIds.length) q = q.in("room_type_id", roomTypeIds)
@@ -239,6 +253,8 @@ function BookingsContent() {
             <SelectItem value="7d">Last 7 days</SelectItem>
             <SelectItem value="30d">Last 30 days</SelectItem>
             <SelectItem value="90d">Last 90 days</SelectItem>
+            <SelectItem value="180d">Last 180 days</SelectItem>
+            <SelectItem value="365d">Last 365 days</SelectItem>
           </SelectContent>
         </Select>
 
